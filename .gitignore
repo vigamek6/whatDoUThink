@@ -1,0 +1,8 @@
+# Sessions
+sessions/*
+!sessions/.gitkeep
+
+# Temporary & Log files
+*.log
+.DS_Store
+Thumbs.db

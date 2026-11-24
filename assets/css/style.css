@@ -1,0 +1,257 @@
+/* Custom Manga Fire Stylesheet */
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Cinzel:wght@700;900&display=swap');
+
+:root {
+    --fire-crimson: #d90429;
+    --fire-scarlet: #ef233c;
+    --fire-orange: #ff5722;
+    --fire-gold: #ffb703;
+    --fire-yellow: #ffea00;
+    --dark-bg: #0b0709;
+    --panel-bg: rgba(18, 12, 15, 0.88);
+    --panel-border: rgba(255, 87, 34, 0.45);
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--dark-bg);
+    color: #f8fafc;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+.font-manga {
+    font-family: 'Bangers', cursive, sans-serif;
+    letter-spacing: 0.08em;
+}
+
+.font-title {
+    font-family: 'Cinzel', serif;
+}
+
+/* Background Canvas */
+#fireCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Fiery Glow Text */
+.fiery-text-glow {
+    text-shadow: 
+        0 0 10px rgba(255, 87, 34, 0.9),
+        0 0 25px rgba(255, 183, 3, 0.7),
+        0 0 45px rgba(217, 4, 41, 0.5);
+}
+
+.fiery-border-glow {
+    box-shadow: 
+        0 0 20px rgba(255, 87, 34, 0.25),
+        inset 0 0 15px rgba(255, 183, 3, 0.1);
+}
+
+.fiery-btn-glow {
+    box-shadow: 
+        0 0 25px rgba(255, 87, 34, 0.6),
+        0 4px 15px rgba(0, 0, 0, 0.6);
+}
+
+.fiery-btn-glow:hover {
+    box-shadow: 
+        0 0 35px rgba(255, 183, 3, 0.8),
+        0 0 50px rgba(255, 87, 34, 0.5);
+    transform: translateY(-2px) scale(1.02);
+}
+
+/* Manga Panel Styling */
+.manga-panel {
+    background: var(--panel-bg);
+    border: 2px solid var(--panel-border);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    position: relative;
+    border-radius: 1.25rem;
+    box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.8),
+        0 0 30px rgba(239, 35, 60, 0.25);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Manga Panel Corner Accents */
+.manga-panel::before, .manga-panel::after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-color: var(--fire-gold);
+    pointer-events: none;
+}
+
+.manga-panel::before {
+    top: -2px;
+    left: -2px;
+    border-top: 3px solid var(--fire-gold);
+    border-left: 3px solid var(--fire-gold);
+    border-top-left-radius: 1.25rem;
+}
+
+.manga-panel::after {
+    bottom: -2px;
+    right: -2px;
+    border-bottom: 3px solid var(--fire-gold);
+    border-right: 3px solid var(--fire-gold);
+    border-bottom-right-radius: 1.25rem;
+}
+
+/* Energy Gauge / Progress Bar */
+.ki-bar-bg {
+    background: rgba(20, 10, 14, 0.9);
+    border: 1.5px solid rgba(255, 87, 34, 0.4);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.ki-bar-fill {
+    background: linear-gradient(90deg, #d90429, #ff5722, #ffb703);
+    box-shadow: 0 0 15px rgba(255, 183, 3, 0.7);
+    transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Option Cards */
+.option-card {
+    background: rgba(30, 18, 22, 0.75);
+    border: 1.5px solid rgba(255, 87, 34, 0.3);
+    transition: all 0.25s ease;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.option-card:hover {
+    border-color: rgba(255, 183, 3, 0.8);
+    background: rgba(50, 24, 28, 0.85);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 87, 34, 0.25);
+}
+
+.option-card.selected {
+    border-color: var(--fire-gold);
+    background: linear-gradient(135deg, rgba(217, 4, 41, 0.35), rgba(255, 87, 34, 0.35));
+    box-shadow: 
+        0 0 20px rgba(255, 183, 3, 0.45),
+        inset 0 0 15px rgba(255, 87, 34, 0.2);
+    transform: translateY(-2px);
+}
+
+.option-letter {
+    background: rgba(20, 10, 12, 0.8);
+    border: 1.5px solid rgba(255, 87, 34, 0.5);
+    color: #ffb703;
+    font-weight: 800;
+    transition: all 0.2s ease;
+}
+
+.option-card.selected .option-letter {
+    background: var(--fire-gold);
+    color: #0b0709;
+    border-color: #ffffff;
+    box-shadow: 0 0 12px rgba(255, 183, 3, 0.8);
+}
+
+/* Manga Input Textarea & Field */
+.manga-input {
+    background: rgba(20, 10, 14, 0.85);
+    border: 1.5px solid rgba(255, 87, 34, 0.4);
+    color: #f8fafc;
+    transition: all 0.25s ease;
+}
+
+.manga-input:focus {
+    outline: none;
+    border-color: var(--fire-gold);
+    box-shadow: 0 0 20px rgba(255, 183, 3, 0.4);
+    background: rgba(28, 14, 18, 0.95);
+}
+
+/* Screen Transitions */
+.step-container {
+    opacity: 0;
+    transform: scale(0.96) translateY(20px);
+    display: none;
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.step-container.active {
+    display: block;
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+/* Animations */
+@keyframes flameFlicker {
+    0%, 100% { opacity: 0.9; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.03); }
+}
+
+.animate-flicker {
+    animation: flameFlicker 2.5s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+    0%, 100% { filter: drop-shadow(0 0 8px rgba(255, 87, 34, 0.5)); }
+    50% { filter: drop-shadow(0 0 22px rgba(255, 183, 3, 0.85)); }
+}
+
+.animate-pulse-glow {
+    animation: pulseGlow 2s infinite ease-in-out;
+}
+
+/* Shake Animation on Validation Error */
+@keyframes shakeError {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-8px); }
+    40%, 80% { transform: translateX(8px); }
+}
+
+.shake {
+    animation: shakeError 0.4s ease-in-out;
+}
+
+/* Manga Speed Lines Overlay for Intro Transition */
+.speedlines-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    background: radial-gradient(circle, transparent 40%, rgba(255, 87, 34, 0.15) 85%);
+    transition: opacity 0.5s ease;
+    z-index: 5;
+}
+
+.speedlines-overlay.active {
+    opacity: 1;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #0b0709;
+}
+::-webkit-scrollbar-thumb {
+    background: #ff5722;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #ffb703;
+}
