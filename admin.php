@@ -11,7 +11,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'delete_user' && isset($_POS
 }
 
 if (isset($_POST['action']) && $_POST['action'] === 'clear_all') {
-    $pdo->exec("TRUNCATE TABLE `answer`");
+    $pdo->exec("DELETE FROM `answer`");
     $message = "Đã xóa sạch toàn bộ câu trả lời!";
 }
 
